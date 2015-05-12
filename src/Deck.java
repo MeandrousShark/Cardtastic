@@ -3,9 +3,10 @@ public class Deck {
 	public static final int NUMCARDS = 52;
 	private ArrayList<Card> deckOfCards;
     private ArrayList<Card> shuffledDeck;
-	//TODO make a deck of cards into a HashMap that gets assigned random keys and then gets sorted into numerical order NO
 
-	//construct deck
+    /**
+     * Constructs the deck, assigning all the suits the 13 ranks.
+     */
 	public Deck() {
 		deckOfCards = new ArrayList<Card>();
 		int i = 0;
@@ -17,18 +18,29 @@ public class Deck {
 		}
 	}
 
+    /**
+     *
+     * @return the deck of cards.
+     */
     public ArrayList<Card> getDeckOfCards() {
         return deckOfCards;
     }
 
-    //shuffle deck
+    public ArrayList<Card> getShuffledDeck() {
+        return shuffledDeck;
+    }
+
+    /**
+     * Uses deckOfCards to create a new ArrayList of it, but shuffled.
+     * @return a shuffled deck.
+     */
 	public ArrayList<Card> shuffle() {
         ArrayList<Card> workingDeck = deckOfCards;
 		shuffledDeck = new ArrayList<Card>();
 		int random;
         int deckSize = workingDeck.size();
         for(int i = 0; i < deckSize; i++) {
-			random = (int) (Math.random() * (52 - i));
+			random = (int) (Math.random() * (NUMCARDS - i));
 			shuffledDeck.add(workingDeck.get(random));
             workingDeck.remove(random);
 		}

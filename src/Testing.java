@@ -6,7 +6,7 @@ import java.util.HashMap;
  */
 
 /*TODO Make so I don't need two decks to properly display the sorted deck. With one deck it...
-TODO ... Clears the sorted deck when it creates the shuffled deck for some reason. 
+TODO ... Clears the sorted deck when it creates the shuffled deck for some reason.
  */
 public class Testing {
     public static void main(String[] args) {
