@@ -1,8 +1,8 @@
 public class Card {
-	public static final int CLUB = 1;
+	public final int CLUB = 1;
 	public final int SPADE = 2;
 	public final int DIAMOND = 3;
-	public static final int HEART = 4;
+	public final int HEART = 4;
 	private int suit;
 	private int rank;
     private static String[] suits = {"hearts", "spades", "diamonds", "clubs"};
