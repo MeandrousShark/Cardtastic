@@ -8,8 +8,10 @@ public class Play {
     public static void main(String[] args) {
         Deck deck = new Deck();
         ArrayList<Card> playingDeck = deck.shuffle();
-        BlackJack bj = new BlackJack(playingDeck);
-        int value = bj.round();
+        //TODO Implement how many players want to play
+        int playerCount = 1;
+        BlackJack bj = new BlackJack(playingDeck, playerCount);
+        int value = bj.results();
         System.out.println("Total = " + value);
     }
 }

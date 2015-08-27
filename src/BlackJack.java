@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class BlackJack implements Hand {
     private ArrayList<Card> deck;
     //Holds the players hands (aw :D)
-    private HashMap<Integer, ArrayList<Card>> players;
+    private ArrayList<ArrayList<Card>> players;
     private Card shownCard;
     private int playerCount;
     private Scanner input;
@@ -27,7 +27,7 @@ public class BlackJack implements Hand {
     public BlackJack(ArrayList<Card> deck, int playNum) {
         this.deck = deck;
         playerCount = playNum;
-        players = new HashMap<>(playNum);
+        players = new ArrayList<>(playNum);
     }
 
     /**
@@ -51,7 +51,17 @@ public class BlackJack implements Hand {
         ArrayList<Card> temp = players.get(turn);
         temp.add(deck.get(0));
         deck.remove(0);
-        players.replace(turn, temp);
+        players.set(turn, temp);
+    }
+
+
+    /**
+     * Sets up the players hands, and deals them their cards.
+     */
+    public void setup() {
+        for (int j = 0; j < playerCount; j++) {
+            players.add(j, deal());
+        }
     }
 
     //TODO Cycle between players
@@ -62,32 +72,40 @@ public class BlackJack implements Hand {
      * Runs a round of BlackJack.
      * @return The value of the hands.
      */
-    public int round() {
+
+    public int[] round() {
         int[] values = new int[playerCount];
         String answer = "hit";
         int i = 0;
+        int playerTurn = 0;
 
-        //Sets up players hands
-        for (int j = 0; j < playerCount; j++) {
-            players.put(j, deal());
-        }
-
-        while (answer.equals("hit")) {
+        GameLoop:
+        do {
             answer = "";
             input = new Scanner(System.in);
             System.out.println("Your hand is: ");
-            //TODO hand needs to change to use the HashMap
-            for (Card card : hand) {
-                System.out.println(card);
+            //TODO hand needs to change to use the ArrayList
+
+//            for (int j = 0; j < playerCount; j++) {
+//                for (int k = 0; k < players.get(j).size(); k++) {
+//
+//                }
+//                System.out.println(card);
+//            }
+
+            while(true) {
+                System.out.println("Hit or stand? ");
+                answer = input.next().toLowerCase();
+                if (answer.substring(0, 1).equals("hit")) {
+                    i++;
+                    break;
+                } else if (answer.equals("stand")) {
+                    break GameLoop;
+                } else {
+                    System.out.println();
+                }
             }
-            System.out.println("Hit or stand? ");
-            answer = input.next().toLowerCase();
-            if (answer.substring(0, 1).equals("h")) {
-                i++;
-            } else {
-                break;
-            }
-        }
+        } while (answer.equals("hit"));
 
         //TODO Implement the array here
         //TODO Possibly make this it's own method
@@ -101,8 +119,13 @@ public class BlackJack implements Hand {
             if(temp > 9) {
                 temp = 10;
             }
-            value += temp;
+            values[playerTurn] += temp;
         }
+        return values;
+    }
+
+    public int results() {
+
         return value;
     }
 
