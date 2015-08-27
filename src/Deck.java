@@ -1,8 +1,8 @@
 import java.util.ArrayList;
+
 public class Deck {
 	public static final int NUMCARDS = 52;
 	private ArrayList<Card> deckOfCards;
-    private ArrayList<Card> shuffledDeck;
 
     /**
      * Constructs the deck, assigning all the suits the 13 ranks.
@@ -26,8 +26,8 @@ public class Deck {
         return deckOfCards;
     }
 
-    public ArrayList<Card> getShuffledDeck() {
-        return shuffledDeck;
+    public ArrayList<Card> getDeck() {
+        return deckOfCards;
     }
 
     /**
@@ -35,15 +35,17 @@ public class Deck {
      * @return a shuffled deck.
      */
 	public ArrayList<Card> shuffle() {
-        ArrayList<Card> workingDeck = deckOfCards;
-		shuffledDeck = new ArrayList<Card>();
-		int random;
-        int deckSize = workingDeck.size();
-        for(int i = 0; i < deckSize; i++) {
-			random = (int) (Math.random() * (NUMCARDS - i));
-			shuffledDeck.add(workingDeck.get(random));
-            workingDeck.remove(random);
-		}
-        return shuffledDeck;
+        ArrayList<Card> newDeck = new ArrayList<>();
+        while(deckOfCards.size() > 0){
+            int i =(int) Math.round(Math.random() * (deckOfCards.size() - 1));
+            newDeck.add(deckOfCards.get(i));
+            deckOfCards.remove(i);
+        }
+        deckOfCards = newDeck;
+        return deckOfCards;
 	}
+
+    public String toString(){
+        return deckOfCards.toString();
+    }
 }
